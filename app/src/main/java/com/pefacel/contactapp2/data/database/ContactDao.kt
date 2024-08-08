@@ -18,12 +18,8 @@ interface ContactDao {
     @Query("DELETE  FROM contact_entity")
     suspend fun deleteAllContacts()
 
-
-//    @Update
-//    suspend fun updateContact(contact: ContactEntity)
-
-    // 1. Actualizar el entity con un booleano favorite por default en false
-    // 2. Crear una función en el dao que busque y actualice el booleano favorite true -> false o de false -> TRUE
+    @Update
+    suspend fun updateContact(item: ContactEntity)
 
 
 }

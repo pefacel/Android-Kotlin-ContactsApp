@@ -1,6 +1,8 @@
 package com.pefacel.contactapp2.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -70,14 +72,42 @@ class ContactActivity : AppCompatActivity() {
                 startDetailContactFragment(currentContact)
             }
         })
+
+        // 3. La barra de búsqueda
+        binding.editTextSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (char != null) {
+                    contactViewModel.filterContactList(char)
+                }
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
+
+
+        binding.imageViewArrow.setOnClickListener {
+
+            startContactListFragment()
+
+        }
+
     }
 
-    private fun startDetailContactFragment(currentContact:ContactEntity) {
+    private fun startDetailContactFragment(currentContact: ContactEntity) {
 
         setCurrentFragment(contactDetailFragment)
 
-        binding.textViewTitle.text=currentContact.name
+        binding.textViewTitle.text = currentContact.name
 
+        binding.imageViewArrow.isVisible = true
+
+        binding.imageViewSearch.isVisible = false
     }
 
     private fun startContactListFragment() {
@@ -93,6 +123,15 @@ class ContactActivity : AppCompatActivity() {
 
         // 4. Inicializar la barra del título con "Contacts"
         binding.textViewTitle.text = "Contacts"
+
+        binding.imageViewArrow.isVisible = false
+
+        binding.imageViewSearch.isVisible = true
+
+        // Reset la barra de búsqueda
+        contactViewModel.resetContactList()
+        binding.editTextSearch.text.clear()
+
 
     }
 

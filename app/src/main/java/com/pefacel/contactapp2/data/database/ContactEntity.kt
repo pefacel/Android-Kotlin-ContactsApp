@@ -9,7 +9,8 @@ data class ContactEntity(
 
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "email") val email: String
+    @ColumnInfo(name = "email") val email: String,
+    @ColumnInfo(name = "favorite") val favorite: Boolean = false
 
 
 )

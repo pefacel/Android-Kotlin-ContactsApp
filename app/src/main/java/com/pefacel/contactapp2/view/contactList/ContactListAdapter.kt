@@ -17,12 +17,9 @@ class ContactListAdapter(
         fun render(contact: ContactEntity) {
             binding.textViewName.text = contact.name
             binding.textViewEmail.text = contact.email
-
             binding.itemContact.setOnClickListener {
                 itemClickListener(contact)
             }
-
-
         }
     }
 
